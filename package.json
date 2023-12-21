@@ -1,0 +1,31 @@
+{
+  "name": "tabby-web-auth-handler",
+  "version": "0.0.1",
+  "description": "Open tabby ssh web auth with child browser and auto continue once window closes.",
+  "keywords": [
+    "tabby-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "BowsiePup",
+  "license": "ISC",
+  "devDependencies": {
+    "tabby-core": "^1.0.197-nightly.1",
+    "tabby-electron": "^1.0.197-nightly.1",
+    "tabby-terminal": "^1.0.197-nightly.1",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "tabby-ssh": "^1.0.197-nightly.1"
+  }
+}
