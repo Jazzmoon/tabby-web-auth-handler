@@ -8,6 +8,7 @@ interface ExtendedTerminalTabComponent extends BaseTerminalTabComponent<any> {
   _activeKIPromptListener: boolean
 
   _activePopupWindow: any
+  _originalLoadURL: string | null
 }
 
 @Injectable()
@@ -119,6 +120,15 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
 
       this.log('ActiveKIPrompt popup window already open')
 
+      tab._activePopupWindow.focus()
+
+      if (tab._originalLoadURL === tab._activePopupWindow.webContents.getURL()) {
+        this.log('Popup window URL has not changed. Updating URL to match new prompt.')
+        tab._activePopupWindow.loadURL(urls[0])
+      } else {
+        this.log('Popup window URL has changed. Leaving URL as is.')
+      }
+
       return
     }
 
@@ -129,13 +139,19 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
       width: 800,
       height: 900,
     })
-
     tab._activePopupWindow.loadURL(urls[0])
+    tab._originalLoadURL = urls[0]
 
     tab._activePopupWindow.on('closed', () => {
       this.log('authPopup closed')
       tab._activePopupWindow = null
-      kiPrompt.respond()
+      // Respond to the prompt if asked "Press Enter when done: "
+
+      // Automatically respond to the prompt if it asks "Press Enter when done: "
+      // Warpgate asks this question when using the "Browser Authentication" feature
+      if (kiPrompt.prompts[0].prompt === 'Press Enter when done: ') {
+        kiPrompt.respond()
+      }
     })
   }
 }
