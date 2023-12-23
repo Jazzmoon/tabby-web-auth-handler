@@ -1,25 +1,24 @@
 name: Publish NPM Package
 
 on:
-  push:
-    branches:
-      - prod
+  release: # Trigger the workflow on release
+    types: [published] # Only run when a release is published
 
 jobs:
   build:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Use Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
-        node-version: '14'
+        node-version: '20.5.1'
         registry-url: 'https://registry.npmjs.org'
 
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --include=dev
 
     - name: Build
       run: npm run build
