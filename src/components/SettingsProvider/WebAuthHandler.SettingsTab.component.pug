@@ -1,0 +1,18 @@
+h3 Web Auth Handler
+
+.header
+    .title Open a browser window so you can login (if needed)
+
+// Create an input that will be used to set the url to open
+input.form-control(
+    id='wah-url'
+    type='text'
+    [(ngModel)]='url'
+    placeholder='Enter a url to open'
+    style="margin-bottom: 10px"
+)
+
+// Create a button that when clicked will call a function in the component
+button.btn.btn-primary(
+    (click)='openBrowser()'
+) Open Browser

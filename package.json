@@ -1,7 +1,7 @@
 {
   "name": "tabby-web-auth-handler",
   "version": "0.0.1",
-  "description": "Open tabby ssh web auth with child browser and auto continue once window closes.",
+  "description": "Web authentication handler for Tabby. Opens a native browser window when a web authentication is requested by the server.",
   "keywords": [
     "tabby-plugin"
   ],
@@ -15,7 +15,11 @@
   "files": [
     "dist"
   ],
-  "author": "BowsiePup",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jazzmoon/tabby-web-auth-handler.git"
+  },
+  "author": "Jazzmoon",
   "license": "ISC",
   "devDependencies": {
     "tabby-core": "^1.0.197-nightly.1",
@@ -23,9 +27,11 @@
     "tabby-terminal": "^1.0.197-nightly.1",
     "ts-loader": "^9.5.1",
     "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
+    "webpack-cli": "^5.1.4",
+    "apply-loader": "^2.0.0",
+    "lodash": "^4.17.21",
+    "pug-loader": "^2.4.0",
+    "tabby-settings": "^1.0.197-nightly.1",
     "tabby-ssh": "^1.0.197-nightly.1"
   }
 }
