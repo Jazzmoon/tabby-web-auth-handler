@@ -3,6 +3,9 @@ name: Test
 on:
   push: 
     branches: [ main ]
+    paths: 
+      - 'src/**'
+      - '.github/workflows/push_main_build.yml'
 
 jobs:
   build:

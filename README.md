@@ -8,7 +8,7 @@ When a web authentication is requested by the server, this plugin opens a native
 
 ## Installation
 
-To install this plugin, follow the instructions in the [Tabby documentation](https://tabby.sh/docs/config.html) for installing plugins.
+Plugins and themes can be installed directly from the Settings view inside Tabby.
 
 ## Usage
 
