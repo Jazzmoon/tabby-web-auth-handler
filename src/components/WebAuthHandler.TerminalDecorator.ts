@@ -116,23 +116,17 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
 
     // If there is a popup window already open, send an alert
     if (tab._activePopupWindow) {
-      tab._activePopupWindow.alert('This popup is likey invalid as the active keyboard input prompt has changed.')
-
       this.log('ActiveKIPrompt popup window already open')
 
-      tab._activePopupWindow.focus()
-
       if (tab._originalLoadURL === tab._activePopupWindow.webContents.getURL()) {
-        this.log('Popup window URL has not changed. Updating URL to match new prompt.')
-        tab._activePopupWindow.loadURL(urls[0])
+        this.log('Popup window URL has not changed. Reopening URL.')
+        tab._activePopupWindow.close()
       } else {
         this.log('Popup window URL has changed. Leaving URL as is.')
+        return
       }
 
-      return
     }
-
-    tab.write('Opening popup window for Browser Authentication')
 
     // @ts-expect-error - Electron BrowserWindow type is not defined
     tab._activePopupWindow = new this.platform.electron.remote.BrowserWindow({
