@@ -20,16 +20,22 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
   }
 
   log(...args: any[]) {
-    console.log('[WebAuthHandler]', ...args)
+    console.log('%c[WebAuthHandler]', 'color: #aaa', ...args)
   }
 
   attach(tab: ExtendedTerminalTabComponent): void {
     // Clone the tab object so we can log it without it being mutated
-    this.log('Attaching to tab')
+    this.log('Attaching to tab', tab)
 
     if (!(tab.frontend instanceof XTermFrontend)) {
       // not xterm
       this.log('Detaching from tab. reason: not xterm')
+      return
+    }
+
+    if (tab.profile.type !== 'ssh') {
+      // not ssh
+      this.log('Detaching from tab. reason: not ssh')
       return
     }
 
@@ -44,10 +50,7 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
 
     // When sessionChanged is emitted, create a new listener for activeKIPrompt 
     tab.sessionChanged$.subscribe(() => {
-      if (!tab._activeKIPromptListener) {
-        this.log('Creating listener for activeKIPrompt. reason: sessionChanged')
-        this.createActiveKIPromptListener(tab)
-      }
+      this.sessionChanged(tab)
     })
   }
 
@@ -56,6 +59,20 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
     if (tab._activePopupWindow) {
       this.log('Closing popup window. reason: tab closed')
       tab._activePopupWindow.close()
+    }
+  }
+
+  sessionChanged(tab: ExtendedTerminalTabComponent): void {
+    if (!tab._activeKIPromptListener) {
+      this.log('Creating listener for activeKIPrompt. reason: session changed')
+      this.createActiveKIPromptListener(tab)
+
+      // When data is output to the terminal, remove the listener because the session has connected
+      const outputListener = tab.output$.subscribe(() => {
+        this.log('Detaching from tab. reason: output')
+        this.removeActiveKIPromptListener(tab)
+        outputListener.unsubscribe()
+      })
     }
   }
 
