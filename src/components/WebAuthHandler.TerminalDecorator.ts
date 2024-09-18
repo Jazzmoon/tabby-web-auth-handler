@@ -145,8 +145,8 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
 
     }
 
-    // @ts-expect-error - Electron BrowserWindow type is not defined
-    tab._activePopupWindow = new this.platform.electron.remote.BrowserWindow({
+    //@ts-expect-error - Expect electron to be avaiable but not provided by types
+    tab._activePopupWindow = new this.platform.electron.BrowserWindow({
       width: 800,
       height: 900,
     })

@@ -11,8 +11,8 @@ export class WebAuthHandlerSettingsTabComponent {
     ) { }
 
     openBrowser() {
-        //@ts-expect-error
-        const win = new this.platform.electron.remote.BrowserWindow({
+        //@ts-expect-error - Expect electron to be avaiable but not provided by types
+        const win = new this.platform.electron.BrowserWindow({
             width: 800,
             height: 900
         })
