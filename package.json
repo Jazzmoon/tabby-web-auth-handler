@@ -1,6 +1,6 @@
 {
   "name": "tabby-web-auth-handler",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Web authentication handler for Tabby. Opens a native browser window when a web authentication is requested by the server.",
   "keywords": [
     "tabby-plugin"
