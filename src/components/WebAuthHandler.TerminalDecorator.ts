@@ -111,7 +111,7 @@ export class WebAuthHandlerDecorator extends TerminalDecorator {
 
   activeKIPromptChanged(kiPrompt: KeyboardInteractivePrompt, tab: ExtendedTerminalTabComponent): void {
     this.log('activeKIPrompt changed')
-    const promptText = kiPrompt.name
+    const promptText = kiPrompt.name + kiPrompt.instruction;
 
     // Regular expression to match URLs
     const urlRegex = /(https?:\/\/[^\s]+)/g;
