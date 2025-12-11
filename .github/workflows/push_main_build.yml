@@ -6,6 +6,7 @@ on:
     paths: 
       - 'src/**'
       - '.github/workflows/push_main_build.yml'
+      - 'package.json'
 
 jobs:
   build:
